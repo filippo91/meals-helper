@@ -1,9 +1,9 @@
 language: java
 services:
   - docker
-before_install:
+  - mongodb
+before_script:
   - source build_scripts/build_env
-
 deploy:
   - provider: script
     script: bash build_scripts/docker_push.sh
