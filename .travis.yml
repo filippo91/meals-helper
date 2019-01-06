@@ -2,7 +2,7 @@ language: java
 services:
   - docker
   - mongodb
-before_script:
+before_install:
   - source build_scripts/build_env
 deploy:
   - provider: script
