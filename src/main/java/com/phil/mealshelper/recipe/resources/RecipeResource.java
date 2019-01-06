@@ -7,7 +7,7 @@ import com.phil.mealshelper.recipe.resources.dto.RecipeDto;
 import com.phil.mealshelper.recipe.resources.mapper.RecipeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,7 +39,7 @@ public class RecipeResource {
     public RecipeDto findRecipeById(@PathVariable String id) {
         return recipeComponent.findRecipeById(id)
                 .map(RecipeMapper::recipetoRecipeDto)
-                .orElseThrow(() -> new HttpClientErrorException(NOT_FOUND));
+                .orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "Recipe Not Exist"));
     }
 
     @PostMapping(RECIPE_SEARCH_BY_INGREDIENTS_URI)
