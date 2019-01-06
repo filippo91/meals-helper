@@ -87,7 +87,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <repository>filippo91/meals-helper</repository>
+                    <repository>${env.DOCKER_REGISTRY_USERNAME}/${env.DOCKER_IMAGE_NAME}</repository>
                     <tag>latest</tag>
                     <buildArgs>
                         <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>

@@ -1,0 +1,2 @@
+export DOCKER_REGISTRY_USERNAME=phil91
+export DOCKER_IMAGE_NAME=meals-helper-app

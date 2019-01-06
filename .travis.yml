@@ -1,0 +1,13 @@
+language: java
+services:
+  - docker
+before_install:
+  - source build_scripts/build_env
+
+deploy:
+  - provider: script
+    script: bash build_scripts/docker_push.sh
+#  - provider: script
+#    script: docker push $DOCKER_REGISTRY_USERNAME/$DOCKER_IMAGE_NAME:latest
+#    on:
+#      branch: master
