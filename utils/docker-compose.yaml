@@ -1,0 +1,12 @@
+version: '3'
+services:
+  meals-helper-api:
+    build:
+      context: ..
+    image: ${DOCKER_REGISTRY_USERNAME}/${DOCKER_IMAGE_NAME}:latest
+    container_name: meals-helper-api
+    ports:
+    - "8090:8080"
+  meals-helper-db:
+    image: mongo:4.0
+    container_name: meals-helper-db
