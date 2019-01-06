@@ -4,6 +4,7 @@ import com.phil.mealshelper.recipe.component.RecipeComponent;
 import com.phil.mealshelper.recipe.model.Ingredient;
 import com.phil.mealshelper.recipe.model.Recipe;
 import com.phil.mealshelper.recipe.resources.dto.RecipeDto;
+import com.phil.mealshelper.recipe.resources.mapper.RecipeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
@@ -11,11 +12,10 @@ import org.springframework.web.client.HttpClientErrorException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.phil.mealshelper.recipe.resources.mapper.RecipeMapper.recipetoRecipeDto;
 import static com.phil.mealshelper.recipe.util.RecipeResourceUrls.*;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestController
 public class RecipeResource {
@@ -28,31 +28,18 @@ public class RecipeResource {
 
     @GetMapping(RECIPE_FIND_ALL_URI)
     public List<RecipeDto> findAllRecipes() {
-
-        List<RecipeDto> allRecipes = recipeComponent
+        return recipeComponent
                 .findAllRecipes()
                 .stream()
-                .map(recipe -> {
-                    System.out.println(recipe);
-                    RecipeDto recipeDto = new RecipeDto(recipe);
-                    recipeDto.add(linkTo(methodOn(RecipeResource.class).findRecipeById(recipe.getId())).withSelfRel());
-                    return recipeDto;
-                })
+                .map(RecipeMapper::recipetoRecipeDto)
                 .collect(Collectors.toList());
-
-        return allRecipes;
     }
 
     @GetMapping(RECIPE_FIND_BY_ID + "/{id}")
     public RecipeDto findRecipeById(@PathVariable String id) {
         return recipeComponent.findRecipeById(id)
-                .map(recipe -> {
-                    System.out.println(recipe);
-                    RecipeDto recipeDto = new RecipeDto(recipe);
-                    recipeDto.add(linkTo(methodOn(RecipeResource.class).findRecipeById(recipe.getId())).withSelfRel());
-                    return recipeDto;})
-                .orElseThrow(() -> new HttpClientErrorException(BAD_REQUEST));
-
+                .map(RecipeMapper::recipetoRecipeDto)
+                .orElseThrow(() -> new HttpClientErrorException(NOT_FOUND));
     }
 
     @PostMapping(RECIPE_SEARCH_BY_INGREDIENTS_URI)
@@ -62,7 +49,7 @@ public class RecipeResource {
 
     @PostMapping(RECIPE_CREATE_URI)
     @ResponseStatus(CREATED)
-    public Recipe storeRecipe(@RequestBody Recipe recipe){
-        return recipeComponent.storeRecipe(recipe);
+    public RecipeDto storeRecipe(@RequestBody Recipe recipe){
+        return recipetoRecipeDto(recipeComponent.storeRecipe(recipe));
     }
 }
