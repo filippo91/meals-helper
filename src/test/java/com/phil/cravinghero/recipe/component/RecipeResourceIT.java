@@ -5,6 +5,7 @@ import com.phil.cravinghero.recipe.model.Recipe;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,7 @@ public class RecipeResourceIT {
     }
 
     @Test
+    @Ignore("setup database before tests")
     public void findAllRecipesByIngredients() {
         Ingredient ingredient = new Ingredient("e3a25512-75d6-42a6-9331-24d46789124c");
 
