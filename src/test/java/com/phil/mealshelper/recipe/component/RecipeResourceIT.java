@@ -91,7 +91,7 @@ public class RecipeResourceIT {
                 .then()
                 .statusCode(201)
                 .body("", notNullValue())
-                .body("recipe.id", notNullValue())
+//                .body("recipe.id", notNullValue())
                 .extract()
                 .body().as(RecipeDto.class);
 
