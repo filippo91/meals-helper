@@ -4,7 +4,7 @@ import com.phil.mealshelper.grocery.model.GroceryList;
 import com.phil.mealshelper.grocery.model.GroceryListItem;
 
 public interface GroceryComponent {
-    GroceryList storeGroceryList(GroceryListItem groceryListItem);
-    GroceryList addItemToGroceryList(GroceryListItem groceryListItem);
-    GroceryList markGroceryListAsDone();
+    GroceryList storeGroceryList(GroceryList groceryList);
+    GroceryList addItemToGroceryList(String groceryListId, GroceryListItem groceryListItem);
+    GroceryList markGroceryAsDone(String groceryListId);
 }

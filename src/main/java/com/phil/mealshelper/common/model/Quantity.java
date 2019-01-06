@@ -1,4 +1,4 @@
-package com.phil.mealshelper.recipe.model;
+package com.phil.mealshelper.common.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

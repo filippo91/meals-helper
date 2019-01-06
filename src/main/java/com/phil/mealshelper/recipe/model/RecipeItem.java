@@ -1,5 +1,6 @@
 package com.phil.mealshelper.recipe.model;
 
+import com.phil.mealshelper.common.model.Quantity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

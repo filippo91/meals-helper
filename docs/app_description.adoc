@@ -1,0 +1,29 @@
+[plantuml, diagram-classes, png]
+....
+@startuml
+
+title Use Case Diagram - meals helper app
+
+
+
+    rectangle recipe-component {
+        (CRUD Operations on Recipe)
+        (Follow Recipe)
+    }
+
+    rectangle foodSupply-component {
+        (CRUD Operations on Food Supply)
+    }
+
+    rectangle groceryList-component {
+        (CRUD Operations on Grocery)
+    }
+
+
+User -up-> (CRUD Operations on Recipe)
+User -up-> (Follow Recipe)
+User -left-> (CRUD Operations on Food Supply)
+User -right-> (CRUD Operations on Grocery)
+
+@enduml
+....
