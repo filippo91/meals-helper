@@ -13,6 +13,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.ScriptOperations;
 import org.springframework.data.mongodb.core.script.ExecutableMongoScript;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
@@ -35,6 +36,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 @RunWith(SpringRunner.class)
+@ActiveProfiles(profiles = "default")
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 public class RecipeResourceIT {
     @LocalServerPort
@@ -81,7 +83,7 @@ public class RecipeResourceIT {
         Ingredient ingredient = new Ingredient(UUID.randomUUID().toString());
         Recipe theRecipe = new Recipe(null, asList(ingredient), null, 1, Recipe.Difficulty.EASY);
 
-        Recipe storedRecipe = given()
+        RecipeDto recipeDto = given()
                 .contentType(ContentType.JSON)
                 .body(theRecipe)
                 .when()
@@ -89,10 +91,11 @@ public class RecipeResourceIT {
                 .then()
                 .statusCode(201)
                 .body("", notNullValue())
-                .body("id", notNullValue())
+                .body("recipe.id", notNullValue())
                 .extract()
-                .body().as(Recipe.class);
+                .body().as(RecipeDto.class);
 
+        Recipe storedRecipe = recipeDto.getRecipe();
         Recipe lookupRecipe = mongoTemplate.findById(storedRecipe.getId(), Recipe.class);
         assertThat(lookupRecipe, equalTo(storedRecipe));
     }

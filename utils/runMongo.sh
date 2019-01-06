@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-docker run -p 27017:27017 mongo -d
+docker run -d -p 27017:27017 mongo
