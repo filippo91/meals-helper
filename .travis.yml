@@ -7,7 +7,7 @@ before_install:
 deploy:
   - provider: script
     script: bash build_scripts/docker_push.sh
-#  - provider: script
-#    script: docker push $DOCKER_REGISTRY_USERNAME/$DOCKER_IMAGE_NAME:latest
-#    on:
-#      branch: master
+  - provider: script
+    script: docker push $DOCKER_REGISTRY_USERNAME/$DOCKER_IMAGE_NAME:latest
+    on:
+      branch: master
