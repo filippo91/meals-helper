@@ -24,7 +24,7 @@ class RecipeRepositorySearchesImpl implements RecipeRepositorySearches {
 //        MatchOperation matchStage = Aggregation.match(new Criteria("isSubset").is(true));
 //        Aggregation aggregation = Aggregation.newAggregation(matchStage, projectionStage);
 //        AggregationResults<Recipe> aggregate = mongoTemplate.aggregate(aggregation, "recipes", Recipe.class);
-
+        //TODO: it is not what I want
         return mongoTemplate.find(Query.query(Criteria.where("ingredients").all(ingredients)), Recipe.class);
     }
 }
