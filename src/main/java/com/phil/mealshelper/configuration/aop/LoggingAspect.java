@@ -1,4 +1,4 @@
-package com.phil.mealshelper.common.aop;
+package com.phil.mealshelper.configuration.aop;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
